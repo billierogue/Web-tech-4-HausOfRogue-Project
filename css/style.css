@@ -1,0 +1,11 @@
+#place-for-content {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.item {
+    border: 1px solid black;
+}
+.cover-image {
+    width: 100%;
+}

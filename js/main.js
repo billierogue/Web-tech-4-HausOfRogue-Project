@@ -7,8 +7,14 @@ var client = contentful.createClient({
 //   console.log(client);
 
 // get all items from contentful - call that data 'entries'
+
+
 client.getEntries({content_type: 'projects'}).then(function (entries) {
     // log the title for all the entries that have it
+    var headerImage = document.createElement("img");
+    headerImage.src = "https://images.ctfassets.net/e8rxwk36sk2r/382QUk5yGau6iDbO23DcHz/ec0188c43bbdc27d025a1c1329bb5683/HausOfRogue_blckLogo.png"
+    headerImage.classList.add("header-image")
+    document.getElementById("place-for-header").append(headerImage)
     console.log(entries);
     // loop through each entry, call it 'entry'
     entries.items.forEach(function (entry) {
@@ -20,31 +26,29 @@ client.getEntries({content_type: 'projects'}).then(function (entries) {
       // <h2>title</h2>
       item.append(category);
 
-      var caption = document.createElement("p");
-      caption.innerHTML = entry.fields.caption;
-      item.append(caption);
-
       if (entry.fields.heroImage){
         var heroImage = document.createElement("img");
-        heroImage.src = entry.fields.heroImage.fields.file.url;
+        heroImage.src = "https:" + entry.fields.heroImage.fields.file.url;
         heroImage.classList.add("hero-image");
         item.append(heroImage);
       }
 
       var getDetails = document.createElement("a");
-      getDetails.innerHTML = "Get Details";
+      getDetails.innerHTML = "go to details";
+      getDetails.classList.add("details")
       getDetails.href = "details.html?id="+entry.sys.id;
       item.append(getDetails);
 
       document.getElementById("place-for-content").append(item);
+      
         // structure will always be entry.fields.nameoffield
       console.log("title: " + entry.fields.categor);
       console.log("Descr: " + entry.fields.description);
-
+      console.log(entry)
       console.log(entry.fields.heroImage.fields.file.url);
     });
   });
-
+   
 //   var myCar = {type: "Ferrari", 
 //                 age: 5,
 //                 features: ["power steering", "power windows", "power brakes"],

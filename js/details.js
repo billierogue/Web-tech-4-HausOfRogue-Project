@@ -9,10 +9,29 @@ var client = contentful.createClient({
 });
 
 client.getEntry(id).then(function (entry) {
-  console.log(entry);
-  var category = document.createElement ('h2');
+  var item = document.createElement("div")
+  var category = document.createElement ('h1');
   category.innerHTML = entry.fields.category;
-  document.getElementById("place-for-content").append(category);
+  item.append(category)
+  var heroImage = document.createElement("img")
+  heroImage.classList.add("hero-image-details")
+  heroImage.src = "https:" + entry.fields.heroImage.fields.file.url
+  item.append(heroImage)
+  var paragraph1 = document.createElement("p");
+  paragraph1.innerHTML = entry.fields.longDescription;
+  item.append(paragraph1)
+
+    if (entry.fields.gallery){ 
+      entry.fields.gallery.forEach(function (entry) {
+        var imageContainer = document.createElement("div");
+        imageContainer.classList.add("gallery-item");
+      var heroImage = document.createElement("img");
+      heroImage.src = "https:" + entry.fields.file.url;
+      heroImage.classList.add("hero-image");
+      imageContainer.append(heroImage);
+      document.getElementById("details-grid").append(imageContainer)
+    })}
+  document.getElementById("place-for-details").append(item);
 });
 
 
